@@ -1,4 +1,4 @@
-/*	$NetBSD$  */
+/*  $NetBSD$  */
 
 /*-
  * Copyright (c) 2020 The NetBSD Foundation, Inc.
@@ -38,25 +38,26 @@ MODULE(MODULE_CLASS_MISC, current_time, NULL);
 void print_current_time(void);
 
 /*
-* Function print_time() fetches the epoch seconds/unix time from the getmicrotime()
-* function and sends its to clock_secs_to_ymdhms(..) in dev/clock_subr to parse it 
-* into readable date and time format and print it. 
-* Please note that the current time is printed in GMT/UTC because the kernel doesn't 
-* has the notion of local timezones.
-*/
+ * Function print_time() fetches the epoch seconds/unix time from the 
+ * getmicrotime() function and sends its to clock_secs_to_ymdhms(..) in 
+ * dev/clock_subr to parse it into readable date and time format and print it. 
+ * Please note that the current time is printed in GMT/UTC because the kernel 
+ * doesn't have the notion of local timezones.
+ */
 void
 print_current_time(void)
 {
 	struct timeval tv;
 	struct clock_ymdhms dt;
-	char w_day[7][10] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", 
-		"Friday", "Saturday" }; // To print week day name from week-day number
+	char w_day[7][10] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", 
+		"Friday", "Saturday"}; // To print week day name from week-day number
 	
-	getmicrotime(&tv); // Outputs the epoch seconds/ unix time
-	clock_secs_to_ymdhms(tv.tv_sec, &dt); // Parses the epoch seconds into date/time
+	getmicrotime(&tv); // Outputs the epoch seconds/ unix time 
+	clock_secs_to_ymdhms(tv.tv_sec, &dt); // Parses the unix time into date/time
     
-	printf("Current Time: %s, %04lu/%02u/%02u %02u:%02u:%02u GMT\n", w_day[dt.dt_wday], 
-		dt.dt_year, dt.dt_mon, dt.dt_day, dt.dt_hour, dt.dt_min, dt.dt_sec);
+	printf("Current Time: %s, %04lu/%02u/%02u %02u:%02u:%02u GMT\n", 
+		w_day[dt.dt_wday], dt.dt_year, dt.dt_mon, dt.dt_day, dt.dt_hour, 
+		dt.dt_min, dt.dt_sec);
 }
 
 static int
