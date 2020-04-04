@@ -1,7 +1,7 @@
-/*	$NetBSD: hello.c,v 1.1 2015/05/13 07:07:36 pgoyette Exp $	*/
+/*	$NetBSD$  */
 
 /*-
- * Copyright (c) 2015 The NetBSD Foundation, Inc.
+ * Copyright (c) 2020 The NetBSD Foundation, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,7 +27,7 @@
  */
 
 #include <sys/cdefs.h>
-__KERNEL_RCSID(0, "$NetBSD: current_time.c,v 1.1 2020/04/02 14:52:36 pgoyette Exp $");
+__KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
 #include <sys/module.h>
@@ -40,7 +40,9 @@ void print_current_time(void);
 /*
 * Function print_time() fetches the epoch seconds/unix time from the getmicrotime()
 * function and sends its to clock_secs_to_ymdhms(..) in dev/clock_subr to parse it 
-* into readable date and time format and print it.
+* into readable date and time format and print it. 
+* Please note that the current time is printed in GMT/UTC because the kernel doesn't 
+* has the notion of local timezones.
 */
 void
 print_current_time(void)
